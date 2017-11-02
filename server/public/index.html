@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mongo Nice List!</title>
+    <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/scripts/client.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/game.controller.js"></script>
+    <link rel="stylesheet" href="/vendors/bootstrap.min.css" />
+</head>
+<body ng-app="myApp">
+    <div class="container" ng-controller="GameController as gc">
+        <h1>Game Emporium!</h1>
+        <div class="row">
+            <div class="col-md-12">
+            <form ng-submit="gc.addGame(gc.newGame)">
+                <label for="name">Name: </label>
+                <input type="text" ng-model="gc.newGame.name" id="name" placeholder="Name" />
+                <label for="location">Rating: </label>
+                <input type="text" ng-model="gc.newGame.rating" id="location" placeholder="Rating" />
+                <button class="btn btn-primary">Add Game</button>
+            </form>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+              <div ng-repeat="game in gc.games" class="well col-md-3">
+                <p>{{game.name}}</p>
+                <p>{{game.rating}}</p>
+                <button ng-click="gc.updateGame(game._id)" class="btn btn-default">Update</button>
+                <button ng-click="gc.deleteGame(game._id)" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
