@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 //provides a bit of context and structure for what data-objects should be:
-var GameSchema = new Schema({name: String, rating: Number});
+var GameSchema = new Schema({name: String, rating: Number, publishedDate: Date, votes: Number});
 //lets us do all the commands we were using in the terminal:
 var Game = mongoose.model('Game', GameSchema, 'games');
 
@@ -23,11 +23,17 @@ router.get('/', function(req, res) {
   });
 });
 
+
 //mongoose handles the POOL for us!!!
 router.post('/', function(req, res) {
   console.log(req.body);
   //can pass in req.body, or add in new properties if you want:
-  var gameToAdd = new Game(req.body);
+  var gameToAdd = new Game({
+    name: req.body.name,
+    rating: req.body.rating,
+    publishedDate: req.body.publishedDate,
+    votes: 0
+  });
   //"save" instead of "insert":
   gameToAdd.save(function(err, data) {
     if (err) {
@@ -45,6 +51,22 @@ router.delete('/:id', function(req, res) {
   Game.findByIdAndRemove({"_id": gameId}, function(err, data) {
     if (err) {
       console.log('noooo');
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
+
+router.put('/:id', function(req, res) {
+  var gameId = req.params.id;
+  console.log(req.body);
+  var likes = req.body.votes;
+  likes++;
+  Game.findByIdAndUpdate({"_id": gameId}, {"votes": likes}, function(err, data) {
+    if (err) {
+      console.log('noooo', err);
       res.sendStatus(500);
     } else {
       res.sendStatus(200);

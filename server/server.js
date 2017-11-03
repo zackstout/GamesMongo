@@ -9,6 +9,7 @@ var port = process.env.PORT || 5000;
 app.use(bodyParser.json()); // needed for angular requests
 app.use(express.static('server/public'));
 
+
 /** ---------- EXPRESS ROUTES ---------- **/
 app.use('/games', games);
 

@@ -3,6 +3,7 @@ myApp.controller('GameController', ['$http', function($http) {
     console.log('GameController created.');
 
     var vm = this;
+    //grabs the data from the input fields:
     vm.newGame = {};
     vm.games = [];
 
@@ -26,6 +27,15 @@ myApp.controller('GameController', ['$http', function($http) {
           console.log('nope');
 
         });
+    };
+
+    vm.likeGame = function(gameId, game) {
+      console.log('hi');
+      $http.put('/games/' + gameId, game).then(function(response) {
+        vm.refreshGames();
+      }).catch(function(error) {
+        console.log('nuts!!!');
+      });
     };
 
     vm.deleteGame = function(gameId) {

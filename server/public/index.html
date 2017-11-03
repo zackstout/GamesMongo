@@ -6,6 +6,8 @@
     <script type="text/javascript" src="/scripts/client.js"></script>
     <script type="text/javascript" src="/scripts/controllers/game.controller.js"></script>
     <link rel="stylesheet" href="/vendors/bootstrap.min.css" />
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
+
 </head>
 <body ng-app="myApp">
     <div class="container" ng-controller="GameController as gc">
@@ -17,6 +19,8 @@
                 <input type="text" ng-model="gc.newGame.name" id="name" placeholder="Name" />
                 <label for="location">Rating: </label>
                 <input type="text" ng-model="gc.newGame.rating" id="location" placeholder="Rating" />
+                <label for="location">Published: </label>
+                <input type="text" ng-model="gc.newGame.publishedDate" id="location" placeholder="Published" />
                 <button class="btn btn-primary">Add Game</button>
             </form>
             </div>
@@ -27,8 +31,11 @@
               <div ng-repeat="game in gc.games" class="well col-md-3">
                 <p>{{game.name}}</p>
                 <p>{{game.rating}}</p>
-                <button ng-click="gc.updateGame(game._id)" class="btn btn-default">Update</button>
+                <p>{{game.publishedDate}}</p>
+                <p>{{game.votes}}</p>
+                <!-- <button ng-click="gc.updateGame(game._id)" class="btn btn-default">Update</button> -->
                 <button ng-click="gc.deleteGame(game._id)" class="btn btn-danger">Delete</button>
+                &emsp;<span class="glyphicon glyphicon-thumbs-up" ng-click="gc.likeGame(game._id, game)"></span>
             </div>
           </div>
         </div>
