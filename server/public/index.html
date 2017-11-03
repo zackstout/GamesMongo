@@ -5,6 +5,7 @@
     <script type="text/javascript" src="/vendors/angular.min.js"></script>
     <script type="text/javascript" src="/scripts/client.js"></script>
     <script type="text/javascript" src="/scripts/controllers/game.controller.js"></script>
+    <script type="text/javascript" src="/scripts/services/games_service.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/vendors/bootstrap.min.css" />
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
 
@@ -28,11 +29,11 @@
 
         <div class="row">
           <div class="col-md-12">
-              <div ng-repeat="game in gc.games" class="well col-md-3">
+              <div ng-repeat="game in gc.games.games" class="well col-md-3">
                 <p>{{game.name}}</p>
-                <p>{{game.rating}}</p>
-                <p>{{game.publishedDate}}</p>
-                <p>{{game.votes}}</p>
+                <p>Rating: {{game.rating}}</p>
+                <p>Date Published: {{game.publishedDate}}</p>
+                <p>Votes: {{game.votes}}</p>
                 <!-- <button ng-click="gc.updateGame(game._id)" class="btn btn-default">Update</button> -->
                 <button ng-click="gc.deleteGame(game._id)" class="btn btn-danger">Delete</button>
                 &emsp;<span class="glyphicon glyphicon-thumbs-up" ng-click="gc.likeGame(game._id, game)"></span>

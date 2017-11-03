@@ -1,49 +1,30 @@
 
-myApp.controller('GameController', ['$http', function($http) {
+myApp.controller('GameController', function(GameService) {
     console.log('GameController created.');
 
     var vm = this;
     //grabs the data from the input fields:
     vm.newGame = {};
-    vm.games = [];
 
-    vm.refreshGames = function() {
-      $http.get('/games').then(function(response) {
-        vm.games = response.data;
-      }).catch(function(err) {
-        console.log('nopppppe');
-      });
-    };
+    vm.games = {};
 
-    vm.refreshGames();
+    GameService.refreshGames();
+
+    //grabs the data from the service:
+    vm.games = GameService.result;
+
+    console.log(vm.games);
 
     vm.addGame = function(gameToAdd) {
-        console.log(gameToAdd);
-        $http.post('/games', gameToAdd).then(function(response) {
-          console.log('yup');
-          vm.refreshGames();
-
-        }).catch(function(error) {
-          console.log('nope');
-
-        });
+      GameService.addGame(gameToAdd);
     };
 
     vm.likeGame = function(gameId, game) {
-      console.log('hi');
-      $http.put('/games/' + gameId, game).then(function(response) {
-        vm.refreshGames();
-      }).catch(function(error) {
-        console.log('nuts!!!');
-      });
+      GameService.likeGame(gameId, game);
     };
 
     vm.deleteGame = function(gameId) {
-      $http.delete('/games/' + gameId).then(function(response) {
-        vm.refreshGames();
-      }).catch(function(error) {
-        console.log('awwww');
-      });
+      GameService.deleteGame(gameId);
     };
 
-}]);
+});

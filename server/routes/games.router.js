@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-//schema time (uppercase to indicate constructor function):
+//schema time! (uppercase to indicate constructor function):
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
